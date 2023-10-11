@@ -36,21 +36,19 @@ export const login = async (req, res, next) => {
         next(error);
     }
 };
-
-export const logout = (req, res) => { // Add 'next' as an argument
-
-
-    res.status(200).cookie("token", "", { expires: new Date(Date.now()) }).json({
-        expires: new Date(Date.now()),
-        sameSite: process.env.NODE_ENV === "DEVELOPMENT" ? "lax" : "none",
-        secure: process.env.NODE_ENV === "DEVELOPMENT" ? false : true
-    })
+export const logout = (req, res) => {
+    res
+        .status(200)
+        .cookie("token", "", {
+            expires: new Date(Date.now()),
+            sameSite: process.env.NODE_ENV === "Develpoment" ? "lax" : "none",
+            secure: process.env.NODE_ENV === "Develpoment" ? false : true,
+        })
         .json({
             success: true,
-            user: req.user
-        })
-
-}
+            user: req.user,
+        });
+};
 
 export const getUserDetails = async (req, res, next) => { // Add 'next' as an argument
 
