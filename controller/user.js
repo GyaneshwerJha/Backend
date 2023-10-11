@@ -4,7 +4,7 @@ import { sendCookie } from "../utils/feature.js"
 import ErrorHandler from "../middlewares/error.js"
 
 
-export const register = async (req, res) => { // Add 'next' as an argument
+export const register = async (req, res, next) => { // Add 'next' as an argument
     try {
         const { name, email, password } = req.body
         let user = await User.findOne({ email })
@@ -37,7 +37,7 @@ export const login = async (req, res, next) => {
     }
 };
 
-export const logout = (req, res) => { // Add 'next' as an argument
+export const logout = (req, res, next) => { // Add 'next' as an argument
 
     try {
         res.status(200).cookie("token", "", { expires: new Date(Date.now()) }).json({
@@ -50,7 +50,7 @@ export const logout = (req, res) => { // Add 'next' as an argument
     }
 }
 
-export const getUserDetails = async (req, res) => { // Add 'next' as an argument
+export const getUserDetails = async (req, res, next) => { // Add 'next' as an argument
 
     try {
         res.status(200).json({
