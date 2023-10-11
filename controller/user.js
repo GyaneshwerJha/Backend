@@ -37,17 +37,19 @@ export const login = async (req, res, next) => {
     }
 };
 
-export const logout = (req, res, next) => { // Add 'next' as an argument
+export const logout = (req, res) => { // Add 'next' as an argument
 
-    try {
-        res.status(200).cookie("token", "", { expires: new Date(Date.now()) }).json({
-            expires: new Date(Date.now()),
-            sameSite: process.env.NODE_ENV === "DEVELOPMENT" ? "lax" : "none",
-            secure: process.env.NODE_ENV === "DEVELOPMENT" ? false : true
+
+    res.status(200).cookie("token", "", { expires: new Date(Date.now()) }).json({
+        expires: new Date(Date.now()),
+        sameSite: process.env.NODE_ENV === "DEVELOPMENT" ? "lax" : "none",
+        secure: process.env.NODE_ENV === "DEVELOPMENT" ? false : true
+    })
+        .json({
+            success: true,
+            user: req.user
         })
-    } catch (error) {
-        next(error)
-    }
+
 }
 
 export const getUserDetails = async (req, res, next) => { // Add 'next' as an argument
